@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>デジライズAIスクール Notion講座 資料リスト</title>
+<meta name="description" content="デジライズAIスクール Notion講座の投影資料・手順書・宿題・特典をまとめた一覧です。">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="assets/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #191919; --sub: #6b6b6b; --mute: #9b9b9b; --line: #e6e6e3; --wash: #f6f6f4; --paper: #fff; --r: 14px; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font: 16px/1.7 "Noto Sans JP", "Hiragino Sans", sans-serif; }
+  a { color: inherit; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  header { display: flex; flex-direction: column; gap: 18px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+  header img { width: 180px; height: auto; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: .01em; line-height: 1.4; }
+  .lead { color: var(--sub); font-size: 15px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 28px 0 18px; }
+  .bar h2 { font-size: 18px; font-weight: 700; }
+  .sort { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--wash); }
+  .sort button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--sub); padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+  .sort button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .list { display: flex; flex-direction: column; gap: 22px; }
+  .card { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; display: grid; grid-template-columns: 320px 1fr; background: var(--paper); }
+  .thumb { background: var(--wash); border-right: 1px solid var(--line); }
+  .thumb { padding: 16px; }
+  .thumb img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+  .body { padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .meta { display: flex; gap: 12px; align-items: baseline; color: var(--sub); font-size: 14px; }
+  .no { font-weight: 700; color: var(--ink); }
+  .ttl { font-size: 22px; font-weight: 700; line-height: 1.4; }
+  .subt { color: var(--sub); font-size: 14px; margin-top: -8px; }
+  .items { list-style: none; padding: 0; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+  .items li { border-bottom: 1px solid var(--line); }
+  .it { display: grid; grid-template-columns: 84px 1fr auto; gap: 14px; align-items: center; padding: 12px 4px; text-decoration: none; }
+  a.it:hover { background: var(--wash); }
+  .kind { font-size: 12px; font-weight: 500; text-align: center; padding: 3px 0; border: 1px solid var(--ink); border-radius: 6px; }
+  .kind.solid { background: var(--ink); color: #fff; }
+  .lbl { font-weight: 500; font-size: 15px; line-height: 1.5; }
+  .note { display: block; color: var(--sub); font-size: 13px; font-weight: 400; }
+  .go { color: var(--mute); font-size: 13px; white-space: nowrap; }
+  .soon { margin-top: 40px; }
+  .soon h2 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .soon ul { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+  .soon li { display: grid; grid-template-columns: 70px 120px 1fr; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--line); color: var(--sub); font-size: 14px; }
+  footer { margin-top: 48px; color: var(--mute); font-size: 12px; }
+  @media (max-width: 720px) {
+    .wrap { padding: 28px 16px 64px; }
+    h1 { font-size: 22px; }
+    .card { grid-template-columns: 1fr; }
+    .thumb { border-right: 0; border-bottom: 1px solid var(--line); }
+    .it { grid-template-columns: 72px 1fr; }
+    .go { display: none; }
+    .soon li { grid-template-columns: 56px 1fr; }
+    .soon li span:last-child { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/logo.png" alt="デジライズAIスクール" width="180" height="53">
+    <h1>デジライズAIスクール<br>Notion講座 資料リスト</h1>
+    <p class="lead">各回の投影資料・手順書・宿題・特典をまとめています。資料は回が終わるごとに追加されます。</p>
+  </header>
+
+  <div class="bar">
+    <h2>公開中の資料</h2>
+    <div class="sort" role="group" aria-label="並び順">
+      <button type="button" data-order="desc" aria-pressed="true">新しい順</button>
+      <button type="button" data-order="asc" aria-pressed="false">古い順</button>
+    </div>
+  </div>
+  <div class="list" id="list"></div>
+
+  <section class="soon" id="soon"></section>
+
+  <footer>© デジライズAIスクール</footer>
+</div>
+<script src="sessions.js"></script>
+<script>
+(() => {
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fmt = (d) => { const t = new Date(d + "T00:00:00+09:00"); return `${t.getMonth() + 1}/${t.getDate()}（${"日月火水木金土"[t.getDay()]}）`; };
+  const all = window.SESSIONS || [];
+  const pub = all.filter((s) => s.published), soon = all.filter((s) => !s.published).sort((a, b) => a.date.localeCompare(b.date));
+  const item = (it) => {
+    const inner = `<span class="kind${it.kind === "投影資料" ? " solid" : ""}">${esc(it.kind)}</span>
+      <span class="lbl">${esc(it.label)}<span class="note">${esc(it.note || "")}</span></span>${it.url ? '<span class="go">開く →</span>' : "<span></span>"}`;
+    if (!it.url) return `<li><div class="it">${inner}</div></li>`;
+    const ext = /^https?:/.test(it.url) ? ' target="_blank" rel="noopener"' : "";
+    return `<li><a class="it" href="${esc(it.url)}"${ext}>${inner}</a></li>`;
+  };
+  const card = (s) => `<article class="card">
+      <div class="thumb">${s.banner ? `<img src="${esc(s.banner)}" alt="第${s.no}回 ${esc(s.title)}" loading="lazy">` : ""}</div>
+      <div class="body"><div class="meta"><span class="no">第${s.no}回</span><span>${fmt(s.date)}</span></div>
+      <div class="ttl">${esc(s.title)}</div>${s.sub ? `<div class="subt">${esc(s.sub)}</div>` : ""}
+      <ul class="items">${(s.items || []).map(item).join("")}</ul></div></article>`;
+  const list = document.getElementById("list");
+  const render = (order) => {
+    const rows = [...pub].sort((a, b) => (order === "asc" ? 1 : -1) * a.date.localeCompare(b.date));
+    list.innerHTML = rows.map(card).join("") || '<p class="lead">公開中の資料はまだありません。</p>';
+    document.querySelectorAll(".sort button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.order === order)));
+  };
+  document.querySelector(".sort").addEventListener("click", (e) => { const o = e.target.dataset?.order; if (o) render(o); });
+  render("desc");
+  if (soon.length) document.getElementById("soon").innerHTML = `<h2>これからの予定</h2><ul>${soon.map((s) =>
+    `<li><span>第${s.no}回</span><span>${fmt(s.date)} 20:00</span><span>${esc(s.title)}</span></li>`).join("")}</ul>`;
+})();
+</script>
+</body>
+</html>
