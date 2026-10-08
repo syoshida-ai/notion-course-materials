@@ -246,6 +246,14 @@
     next();
   });
   document.getElementById("btnFull").onclick = fullscreen;
+  // 資料リスト（ハブ）へのボタン。投影版は別タブで開く（発表中のスライド位置を失わないため）、配布版は同じタブで移る
+  if (deck.hub) {
+    const hubBtn = document.createElement("button");
+    hubBtn.id = "btnHub"; hubBtn.textContent = "資料リスト"; hubBtn.title = "資料リストを開く（L）";
+    hubBtn.onclick = () => (DIST ? location.assign(deck.hub) : open(deck.hub, "_blank", "noopener"));
+    document.getElementById("hud").prepend(hubBtn);
+    addEventListener("keydown", (e) => { if ((e.key === "l" || e.key === "L") && !e.metaKey && !e.ctrlKey && !e.altKey) hubBtn.click(); });
+  }
   if (DIST) document.querySelectorAll("#btnVoice, #btnPresenter, #mic, #heard").forEach((el) => el.remove());
   else document.getElementById("btnVoice").onclick = toggleVoice;
   if (!DIST) document.getElementById("btnPresenter").onclick = () => open(`presenter.html#${deck.id}`, "talkslides-presenter", "width=1100,height=760");
