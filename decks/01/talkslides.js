@@ -104,8 +104,16 @@
       ${s.qr ? `<div class="fqr" ${a("pop")}><img src="${esc(s.qr)}" alt=""><div><b>${esc(s.url || "")}</b><span>${md(s.cap || "スマホのカメラで読み取ってください")}</span></div></div>` : ""}</div>
       <figure ${a("pop")}><div class="frame"><img src="${esc(s.shot.img)}" alt=""></div>
       <figcaption><b>${md(s.shot.cap || "")}</b>${s.shot.src ? `<span>${esc(s.shot.src)}</span>` : ""}</figcaption></figure></div></div>`;
+  // 区切り：ここまでできたら OK（チェック一覧）＋「次は」。右に完成画面を置ける
+  const CHECK = `<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
+  L.checkpoint = (s) => `<div class="slide ckp${s.image ? " img" : ""}">${kicker(s)}<div class="ck-l">
+      <div class="ck-badge" ${a("pop")}>${CHECK}<span>${esc(s.badge || "CHECK POINT")}</span></div>
+      <div class="msg" ${a()}>${md(s.message)}</div>
+      <ul class="ck-list">${(s.done || []).map((x) => `<li ${a()}><i>${CHECK}</i><span>${md(x)}</span></li>`).join("")}</ul></div>
+      ${s.image ? `<figure class="ck-img" ${a("pop")}><img src="${esc(s.image)}" alt=""></figure>` : ""}
+      ${s.next ? `<div class="ck-next" ${a()}><span>次は</span><b>${md(s.next)}</b><em>→</em></div>` : ""}</div>`;
   L.live = (s) => `<div class="slide lv${s.full ? " full" : ""}">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>
-      ${(s.actions || []).map((x, k) => `<div class="step" ${a()}><b>${k + 1}</b><span>${md(x)}</span></div>`).join("")}
+      ${(s.actions || []).map((x, k) => `<div class="step" ${a()}><b>${k + 1}</b><span>${md(x.replace(/（[^）]*赤枠[^）]*）/g, ""))}</span></div>`).join("")}
       ${notes(s)}${s.shot ? `<figure class="lshot" ${a("pop")}><img src="${esc(s.shot.img)}" alt=""><figcaption>${md(s.shot.cap || "")}</figcaption></figure>` : ""}</div></div>`;
   const shot = (s) => `<div class="shot" ${a("pop")}>${s.image ? `<img src="${esc(s.image)}" alt="">` : `<div class="ph">［画像］${esc(s.visual || "スクリーンショット")}</div>`}</div>`;
   const doodle = (kind) => `<svg class="doodle" viewBox="0 0 560 560" aria-hidden="true">
@@ -118,7 +126,7 @@
   // ---------- 描画 ----------
   stage.innerHTML = deck.slides.map((s, i) => { n = 0; return (L[s.layout] || L.statement)(s).replace(/<\/div>$/, `${s.layout === "cover" ? "" : foot(s, i)}</div>`); }).join("");
   const slides = [...stage.children];
-  const WEB_RECT = [470, 64, 1426, 910];  // live レイアウトの既定位置（1920x1080 座標）。画面の約3/4をブラウザに使う
+  const WEB_RECT = [560, 64, 1336, 910];  // live レイアウトの既定位置（1920x1080 座標）。画面の約3/4をブラウザに使う
   const FULL_RECT = [60, 300, 1800, 670];  // live の full：見出しの下を全部ブラウザにする
   const web = document.createElement("div");
   web.id = "web";
