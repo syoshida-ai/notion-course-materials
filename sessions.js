@@ -5,7 +5,7 @@ window.SESSIONS = [
     no: 1, date: "2026-10-30", title: "Notionの始め方", sub: "初期設定から「自分のホーム」づくりまで",
     banner: "assets/banners/notion01.jpg", published: true,
     items: [
-      { kind: "投影資料", label: "第1回 投影資料（スライド97枚）", url: "decks/01/", note: "→キーまたはクリックで進みます" },
+      { kind: "投影資料", label: "第1回 投影資料（スライド99枚）", url: "decks/01/", note: "→キーまたはクリックで進みます" },
       { kind: "手順書", label: "自分のホームを作る手順書", url: "https://digirise.notion.site/Notion-1-3f21fda80e768107bb73e320082171aa", note: "5ステップ・スクショつき（約15分）" },
       { kind: "宿題", label: "自分のホームを作る", note: "締め切りは第2回 11/12（木）20:00まで。できたらDiscordでシェア" },
       { kind: "特典", label: "ブロック図鑑とショートカット", url: "https://digirise.notion.site/Notion-1-3f21fda80e76815fa4abe732584b9e83", note: "「/」で出せるブロック10個を、機能と活用事例で" },

@@ -294,3 +294,8 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 .feat.wide .frame, .feat.wide .frame img { max-height: 520px; }
 .feat.wide figure { align-items: flex-start; }
 .feat.wide .frame img { width: auto; max-width: 100%; }
+/* live の full：上に見出しと手順を1段、下は全幅のブラウザ */
+.slide.lv.full { padding: 120px 60px 0; }
+.lv.full .live-l { width: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px 34px; margin: 0; }
+.lv.full .live-l .msg { width: 100%; font-size: 44px !important; }
+.lv.full .live-l .step { font-size: 22px; }
