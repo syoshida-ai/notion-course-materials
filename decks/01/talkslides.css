@@ -280,3 +280,15 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 .fqr img { width: 170px; height: 170px; flex: none; }
 .fqr b { display: block; font-size: 24px; color: var(--accent); word-break: break-all; }
 .fqr span { display: block; font-size: 19px; color: var(--sub); margin-top: 8px; line-height: 1.5; }
+/* 目次が11項目以上のとき */
+.toc.many { gap: 8px; margin-top: 26px; }
+.toc.many .tc { padding: 10px 22px; }
+.toc.many .tc .tn { font-size: 28px; }
+.toc.many .tc .tt { font-size: 25px; }
+.toc.many .tc .td { font-size: 17px; margin-top: 2px; }
+/* 画面全体のスクショを大きく見せる feature（wide） */
+.feat.wide { grid-template-columns: 400px 1fr; gap: 40px; margin-top: 36px; }
+.feat.wide .fn { font-size: 27px; padding: 18px 22px; }
+.feat.wide .frame, .feat.wide .frame img { max-height: 520px; }
+.feat.wide figure { align-items: flex-start; }
+.feat.wide .frame img { width: auto; max-width: 100%; }

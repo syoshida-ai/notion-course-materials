@@ -73,7 +73,7 @@
       <div class="facts">${s.facts.map((f) => `<div class="block" ${a("pop")}>${f.emoji ? `<div class="emoji">${f.emoji}</div>` : ""}<div class="bt">${md(f.t)}</div><div class="bd">${md(f.d || "")}</div></div>`).join("")}</div></div></div></div>`;
   // 目次
   L.toc = (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:58px">${md(s.message)}</div>
-      <div class="toc${s.items.length > 5 ? " two" : ""}">${s.items.map((it, k) => `<div class="tc${it.on ? " on" : ""}" ${a("up")}><div class="tn">${String(k + 1).padStart(2, "0")}</div>
+      <div class="toc${s.items.length > 5 ? " two" : ""}${s.items.length > 10 ? " many" : ""}">${s.items.map((it, k) => `<div class="tc${it.on ? " on" : ""}" ${a("up")}><div class="tn">${String(k + 1).padStart(2, "0")}</div>
         <div><div class="tt">${md(it.t)}</div><div class="td">${md(it.d || "")}</div></div><div class="tm">${esc(it.m || "")}</div></div>`).join("")}</div></div>`;
   // QRコード（アンケート等）
   L.qr = (s) => `<div class="slide">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>${notes(s)}</div>
@@ -100,7 +100,7 @@
       <figcaption><b>${md(s.shot.cap || "")}</b>${s.shot.src ? `<span>${esc(s.shot.src)}</span>` : ""}</figcaption></figure></div>`;
   // 機能紹介：上に1行メッセージ、左に要点、右に大きなスクショ
   L.feature = (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:56px">${md(s.message)}</div>
-      <div class="feat"><div class="fnotes">${(s.notes || []).map((x) => `<div class="fn" ${a()}>${md(x)}</div>`).join("")}
+      <div class="feat${s.wide ? " wide" : ""}"><div class="fnotes">${(s.notes || []).map((x) => `<div class="fn" ${a()}>${md(x)}</div>`).join("")}
       ${s.qr ? `<div class="fqr" ${a("pop")}><img src="${esc(s.qr)}" alt=""><div><b>${esc(s.url || "")}</b><span>${md(s.cap || "スマホのカメラで読み取ってください")}</span></div></div>` : ""}</div>
       <figure ${a("pop")}><div class="frame"><img src="${esc(s.shot.img)}" alt=""></div>
       <figcaption><b>${md(s.shot.cap || "")}</b>${s.shot.src ? `<span>${esc(s.shot.src)}</span>` : ""}</figcaption></figure></div></div>`;
@@ -133,7 +133,12 @@
     Object.assign(web.style, { left: `${b.left + r[0] * k}px`, top: `${b.top + r[1] * k}px`, width: `${r[2] * k}px`, height: `${r[3] * k}px` });
   };
   const showWeb = (spec) => {
-    if (!spec || DIST) { web.classList.remove("on"); return; }
+    if (!spec || DIST) {
+      web.classList.remove("on");
+      // 埋め込みNotionにフォーカスが残るとキー（⌘←/→）を吸われるので、スライドに戻す
+      if (document.activeElement === wframe) { wframe.blur(); window.focus(); }
+      return;
+    }
     webRect = spec.rect || WEB_RECT; placeWeb();
     loadWeb(spec.url || wframe.dataset.src || deck.web?.home);
     web.classList.add("on");
