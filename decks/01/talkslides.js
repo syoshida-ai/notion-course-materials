@@ -103,7 +103,7 @@
       <div class="feat"><div class="fnotes">${(s.notes || []).map((x) => `<div class="fn" ${a()}>${md(x)}</div>`).join("")}</div>
       <figure ${a("pop")}><div class="frame"><img src="${esc(s.shot.img)}" alt=""></div>
       <figcaption><b>${md(s.shot.cap || "")}</b>${s.shot.src ? `<span>${esc(s.shot.src)}</span>` : ""}</figcaption></figure></div></div>`;
-  L.live = (s) => `<div class="slide">${kicker(s)}<div class="live-l"><div class="msg" ${a()} style="font-size:56px">${md(s.message)}</div>
+  L.live = (s) => `<div class="slide lv">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>
       ${(s.actions || []).map((x, k) => `<div class="step" ${a()}><b>${k + 1}</b><span>${md(x)}</span></div>`).join("")}
       ${notes(s)}${s.shot ? `<figure class="lshot" ${a("pop")}><img src="${esc(s.shot.img)}" alt=""><figcaption>${md(s.shot.cap || "")}</figcaption></figure>` : ""}</div></div>`;
   const shot = (s) => `<div class="shot" ${a("pop")}>${s.image ? `<img src="${esc(s.image)}" alt="">` : `<div class="ph">［画像］${esc(s.visual || "スクリーンショット")}</div>`}</div>`;
@@ -117,19 +117,19 @@
   // ---------- 描画 ----------
   stage.innerHTML = deck.slides.map((s, i) => { n = 0; return (L[s.layout] || L.statement)(s).replace(/<\/div>$/, `${s.layout === "cover" ? "" : foot(s, i)}</div>`); }).join("");
   const slides = [...stage.children];
-  const WEB_RECT = [820, 200, 960, 720];  // live レイアウトの既定位置（1920x1080 座標）
+  const WEB_RECT = [600, 40, 1280, 910];  // live レイアウトの既定位置（1920x1080 座標）。画面の約2/3をブラウザに使う
   const web = document.createElement("div");
   web.id = "web";
   web.innerHTML = `<div class="wbar"><i></i><i></i><i></i><button data-w="back" title="戻る">←</button><button data-w="reload" title="再読み込み">↻</button>
     <input id="wurl" spellcheck="false"><button data-w="max" title="大きく / 戻す（B）">⤢</button></div>
     <iframe id="wframe" allow="clipboard-read; clipboard-write; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-  if (!DIST) stage.appendChild(web);
+  if (!DIST) document.body.appendChild(web);  // 拡大縮小される stage の外に置く（iframe を等倍で描画し、文字のにじみと操作のずれを防ぐ）
   const wframe = web.querySelector("#wframe"), wurl = web.querySelector("#wurl");
   let webMax = false, webRect = WEB_RECT;
   const loadWeb = (url) => { if (url && wframe.dataset.src !== url) { wframe.dataset.src = url; wframe.src = url; wurl.value = url; } };
-  const placeWeb = () => {
-    const r = webMax ? [40, 40, W - 80, H - 80] : webRect;
-    Object.assign(web.style, { left: `${r[0]}px`, top: `${r[1]}px`, width: `${r[2]}px`, height: `${r[3]}px` });
+  const placeWeb = () => {  // スライド座標 → 画面座標に変換して置く
+    const r = webMax ? [40, 40, W - 80, H - 80] : webRect, b = stage.getBoundingClientRect(), k = b.width / W;
+    Object.assign(web.style, { left: `${b.left + r[0] * k}px`, top: `${b.top + r[1] * k}px`, width: `${r[2] * k}px`, height: `${r[3] * k}px` });
   };
   const showWeb = (spec) => {
     if (!spec || DIST) { web.classList.remove("on"); return; }
@@ -146,8 +146,10 @@
   });
   wurl.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Enter") { const u = /^https?:/.test(wurl.value) ? wurl.value : `https://${wurl.value}`; wframe.dataset.src = ""; loadWeb(u); } });
   addEventListener("message", (e) => { if (e.data?.talkslides === "next") next(); if (e.data?.talkslides === "prev") go(cur - 1); });
-  const fit = () => { const k = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%,-50%) scale(${k})`; };
+  const fit = () => { const k = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%,-50%) scale(${k})`; placeWeb(); };
   addEventListener("resize", fit); fit();
+  // 最初の live スライドを待たずに先読みしておく（開いた瞬間に白い画面が出ないように）
+  if (!DIST && deck.slides.some((x) => x.layout === "live" || x.web)) loadWeb(deck.web?.home || deck.notionHome);
 
   // ---------- 進行 ----------
   const bc = new BroadcastChannel(`talkslides:${deck.id}`);
@@ -157,6 +159,7 @@
     i = Math.max(0, Math.min(slides.length - 1, i));
     if (i === cur) return;
     slides[cur]?.classList.remove("on");
+    slides[i].classList.remove("revealed");  // クイズは戻ってきたら答えを伏せ直す（何度でも出題できる）
     cur = i; void slides[cur].offsetWidth; slides[cur].classList.add("on");  // reflow でアニメを毎回再生
     progress.style.width = `${(cur + 1) / slides.length * 100}%`;
     history.replaceState(null, "", `#${cur + 1}`);
@@ -224,6 +227,10 @@
   // ---------- 入力 ----------
   let jump = "";
   addEventListener("keydown", (e) => {
+    // ⌘（Windows は Ctrl）＋←/→ でページ送り。Chrome の「戻る」より先に止める
+    if ((e.metaKey || e.ctrlKey) && (e.key === "ArrowRight" || e.key === "ArrowLeft")) {
+      e.preventDefault(); if (e.key === "ArrowRight") next(); else go(cur - 1); return;
+    }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const k = e.key;
     if (/^[0-9]$/.test(k)) { jump += k; return; }
@@ -239,12 +246,8 @@
     else if ((k === "b" || k === "B") && web.classList.contains("on")) { webMax = !webMax; placeWeb(); }
     else if (k === "p" || k === "P") open(`presenter.html#${deck.id}`, "talkslides-presenter", "width=1100,height=760");
   });
-  // クリックで進むのは通常スライドだけ。クイズは「答えを見る」ボタン／→キー／クリッカーで答えを出す（文面のクリックで答えが出ないように）
-  stage.addEventListener("click", (e) => {
-    if (e.target.closest(".reveal-btn")) { next(); return; }
-    if (slides[cur].classList.contains("quiz") || e.target.closest(".opts, .msg, .hint, .explain")) return;
-    next();
-  });
+  // クリックではページを送らない（誤操作防止）。クイズの「答えを見る」ボタンだけクリックで動く
+  stage.addEventListener("click", (e) => { if (e.target.closest(".reveal-btn")) next(); });
   document.getElementById("btnFull").onclick = fullscreen;
   // 資料リスト（ハブ）へのボタン。投影版は別タブで開く（発表中のスライド位置を失わないため）、配布版は同じタブで移る
   if (deck.hub) {

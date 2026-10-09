@@ -116,10 +116,10 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 /* 埋め込みブラウザ層：スライドを前後しても消えない（iframe の状態を保つ）。位置はスライドごとに滑らかに移動 */
 .live-l { width: 620px; display: flex; flex-direction: column; gap: 26px; margin-top: 10px; }
 .live-l .notes { margin-top: 30px; }
-#web { position: absolute; z-index: 5; display: flex; flex-direction: column; background: #fff; border: 1.5px solid var(--line);
+#web { position: fixed; z-index: 5; display: flex; flex-direction: column; background: #fff; border: 1.5px solid var(--line);
   border-radius: 16px; overflow: hidden; box-shadow: 0 30px 70px rgba(0, 0, 0, .14); opacity: 0; pointer-events: none;
   transform: translateY(24px) scale(.98);
-  transition: opacity .5s var(--ease), transform .6s var(--ease), left .7s var(--ease), top .7s var(--ease), width .7s var(--ease), height .7s var(--ease); }
+  transition: opacity .4s var(--ease), transform .5s var(--ease); }  /* 大きさは動かさない（iframe の再レイアウトでカクつくため） */
 #web.on { opacity: 1; pointer-events: auto; transform: none; }
 #web .wbar { height: 52px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 16px; background: var(--wash); border-bottom: 1.5px solid var(--line); }
 #web .wbar i { width: 13px; height: 13px; border-radius: 50%; background: #d9d9d6; }
@@ -269,3 +269,10 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 .slide code { white-space: nowrap; }
 .ic { font-size: 24px; padding: 8px 16px 8px 10px; }
 .ic img, .ic i { width: 38px; height: 38px; font-size: 30px; line-height: 38px; }
+/* live：左1/3に説明、右2/3にブラウザ */
+.slide.lv { padding: 170px 40px 120px 60px; }
+.lv .kicker { left: 60px; }
+.lv .live-l { width: 500px; gap: 20px; }
+.lv .live-l .msg { font-size: 40px !important; }
+.lv .live-l .step { font-size: 24px; }
+.lv .lshot img { max-height: 240px; }
