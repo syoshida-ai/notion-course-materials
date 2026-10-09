@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1E6FFF"/><stop offset="1" stop-color="#28C8E8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <!-- 白いページ（少し傾けた紙＋影） -->
+  <g transform="rotate(-6 256 256)">
+    <rect x="118" y="104" width="276" height="314" rx="34" fill="#0B2E73" opacity=".22" transform="translate(10 14)"/>
+    <rect x="118" y="104" width="276" height="314" rx="34" fill="#fff"/>
+    <!-- 太いセリフ風の N -->
+    <path d="M176 166 h58 l66 108 v-84 l-22 -6 v-18 h82 v18 l-22 6 v168 h-46 l-80 -130 v104 l22 6 v20 h-82 v-20 l22 -6 v-136 l-22 -6 z" fill="#0B2E73"/>
+  </g>
+</svg>
