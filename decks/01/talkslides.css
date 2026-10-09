@@ -316,3 +316,11 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 .ck-next { position: absolute; left: 120px; right: 120px; bottom: 120px; display: flex; align-items: center; gap: 24px; padding: 22px 34px; border-radius: 16px; background: #fff; border: 1.5px solid var(--line); font-size: 30px; }
 .ck-next span { font-size: 22px; font-weight: 700; color: var(--sub); letter-spacing: .1em; }
 .ck-next em { margin-left: auto; font-style: normal; color: var(--accent); font-size: 36px; }
+/* 縦長スクショを大きく（showcase tall / cards tallImg） */
+.sc-tall .live-l { width: 900px; }
+.showcase.tall { left: auto; right: 120px; top: 150px; width: auto; align-items: flex-start; }
+.showcase.tall img { width: auto; max-width: 840px; max-height: 760px; }
+.cards.tall .cimg { height: 470px; max-height: none; width: 100%; object-fit: cover; object-position: top left; border-radius: 10px; }
+.cards.tall { margin-top: 40px; }
+.note b, .fn b { display: inline-block; min-width: 4.6em; margin-right: 18px; padding: 2px 14px; border-radius: 6px; background: var(--ink); color: #fff; font-size: .82em; text-align: center; }
+#web .wname { flex: 1; font-size: 20px; font-weight: 700; color: var(--sub); }

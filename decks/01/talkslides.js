@@ -7,7 +7,7 @@
   const W = 1920, H = 1080;
   const stage = document.getElementById("stage");
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const md = (s) => esc(s).replace(/==(.+?)==/g, '<span class="mark">$1</span>').replace(/`(.+?)`/g, "<code>$1</code>").replace(/\\n|&lt;br&gt;/g, "<br>");  // ==強調== で下線マーカー
+  const md = (s) => esc(s).replace(/==(.+?)==/g, '<span class="mark">$1</span>').replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>").replace(/\\n|&lt;br&gt;/g, "<br>");  // ==強調== で下線マーカー
   let n = 0;  // アニメーションの順番カウンタ
   const a = (kind = "up") => `data-a="${kind}" style="--i:${n++}"`;
 
@@ -91,12 +91,12 @@
       ${s.source ? `<div class="src">${esc(s.source)}</div>` : ""}</div>`;
   // カードを格子に並べる（4〜6枚）
   L.cards = (s) => `<div class="slide mid">${kicker(s)}<div class="msg" ${a()} style="font-size:54px">${md(s.message)}</div>${icons(s)}
-      <div class="cards" style="grid-template-columns:repeat(${s.colsN || 3},1fr)">${s.items.map((it) =>
+      <div class="cards${s.tallImg ? " tall" : ""}" style="grid-template-columns:repeat(${s.colsN || 3},1fr)">${s.items.map((it) =>
         `<div class="block${it.hl ? " hl" : ""}" ${a("pop")}>${it.img ? `<img class="cimg" src="${esc(it.img)}" alt="">` : ""}${it.emoji ? `<div class="emoji">${it.emoji}</div>` : ""}
         <div class="bt">${md(it.t)}</div><div class="bd">${md(it.d || "")}</div></div>`).join("")}</div></div>`;
   // 1枚のスクショを大きく見せる（左に文字、右に画像）
-  L.showcase = (s) => `<div class="slide">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>${notes(s)}</div>
-      <figure class="showcase" ${a("pop")}><div class="frame"><img src="${esc(s.shot.img)}" alt=""></div>
+  L.showcase = (s) => `<div class="slide${s.tall ? " sc-tall" : ""}">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>${notes(s)}</div>
+      <figure class="showcase${s.tall ? " tall" : ""}" ${a("pop")}><div class="frame"><img src="${esc(s.shot.img)}" alt=""></div>
       <figcaption><b>${md(s.shot.cap || "")}</b>${s.shot.src ? `<span>${esc(s.shot.src)}</span>` : ""}</figcaption></figure></div>`;
   // 機能紹介：上に1行メッセージ、左に要点、右に大きなスクショ
   L.feature = (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:56px">${md(s.message)}</div>
@@ -131,7 +131,7 @@
   const web = document.createElement("div");
   web.id = "web";
   web.innerHTML = `<div class="wbar"><i></i><i></i><i></i><button data-w="back" title="戻る">←</button><button data-w="reload" title="再読み込み">↻</button>
-    <input id="wurl" spellcheck="false"><button data-w="max" title="大きく / 戻す（B）">⤢</button></div>
+    <span class="wname">Notion（実際の画面）</span><input id="wurl" spellcheck="false" hidden><button data-w="max" title="大きく / 戻す（B）">⤢</button></div>
     <div class="whint">埋め込みブラウザを表示できません。<br>Chrome の拡張「TalkSlides Embed」を chrome://extensions で有効化（または ↻ 再読み込み）してから、このページを再読み込みしてください。<br>N キーで Notion を別ウィンドウで開けます。</div>
     <iframe id="wframe" allow="clipboard-read; clipboard-write; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
   if (!DIST) document.body.appendChild(web);  // 拡大縮小される stage の外に置く（iframe を等倍で描画し、文字のにじみと操作のずれを防ぐ）
