@@ -324,3 +324,19 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 .cards.tall { margin-top: 40px; }
 .note b, .fn b { display: inline-block; min-width: 4.6em; margin-right: 18px; padding: 2px 14px; border-radius: 6px; background: var(--ink); color: #fff; font-size: .82em; text-align: center; }
 #web .wname { flex: 1; font-size: 20px; font-weight: 700; color: var(--sub); }
+/* 当日アシスト */
+#assist { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.55); display: grid; place-items: center; font-family: var(--font); }
+#assist[hidden] { display: none; }
+#assist .as-box { width: min(860px, 92vw); max-height: 90vh; overflow: auto; background: #fff; color: var(--ink); border-radius: 16px; padding: 28px 32px; }
+#assist .as-h { display: flex; align-items: center; font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+#assist .as-h button { margin-left: auto; }
+#assist ol { list-style: none; margin: 0; padding: 0; counter-reset: as; }
+#assist li { counter-increment: as; display: grid; grid-template-columns: 34px 1fr auto; grid-template-rows: auto auto; column-gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+#assist li::before { content: counter(as); grid-row: 1 / 3; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; }
+#assist li.ok::before { content: "OK"; font-size: 11px; }
+#assist li.ng::before { content: "NG"; font-size: 11px; background: #fff; color: var(--ink); border: 2px solid var(--ink); }
+#assist li b { font-size: 18px; } #assist li span { grid-column: 2; font-size: 15px; color: var(--sub); line-height: 1.6; }
+#assist li button { grid-column: 3; grid-row: 1 / 3; }
+#assist button { border: 1.5px solid var(--ink); background: #fff; color: var(--ink); border-radius: 8px; padding: 8px 14px; font: 600 14px var(--font); cursor: pointer; }
+#assist button.pri { background: var(--ink); color: #fff; }
+#assist .as-k { margin-top: 14px; font-size: 13px; color: var(--sub); }

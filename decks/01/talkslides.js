@@ -261,7 +261,9 @@
     else if (k === "v" || k === "V") toggleVoice();
     else if (k === "n" || k === "N") toggleNotion();
     else if ((k === "b" || k === "B") && web.classList.contains("on")) { webMax = !webMax; placeWeb(); }
-    else if (k === "p" || k === "P") open(`presenter.html#${deck.id}`, "talkslides-presenter", "width=1100,height=760");
+    else if (k === "p" || k === "P") openPresenter();
+    else if (k === "a" || k === "A") assist.toggleAttribute("hidden");
+    else if (k === "Escape") assist.hidden = true;
   });
   // クリックではページを送らない（誤操作防止）。クイズの「答えを見る」ボタンだけクリックで動く
   stage.addEventListener("click", (e) => { if (e.target.closest(".reveal-btn")) next(); });
@@ -276,7 +278,48 @@
   }
   if (DIST) document.querySelectorAll("#btnVoice, #btnPresenter, #mic, #heard").forEach((el) => el.remove());
   else document.getElementById("btnVoice").onclick = toggleVoice;
-  if (!DIST) document.getElementById("btnPresenter").onclick = () => open(`presenter.html#${deck.id}`, "talkslides-presenter", "width=1100,height=760");
+  if (!DIST) document.getElementById("btnPresenter").onclick = () => openPresenter();
+
+  // ---------- 当日アシスト（A キー・?assist）：本番前の確認と2画面の起動 ----------
+  // 発表者画面はもう1枚の画面に開く（Window Management API。許可がなければ普通の別ウィンドウ）
+  async function openPresenter() {
+    let feat = "width=1200,height=800";
+    try {
+      const sd = await window.getScreenDetails?.();
+      const other = sd?.screens.find((x) => x !== sd.currentScreen);
+      if (other) feat = `left=${other.availLeft},top=${other.availTop},width=${other.availWidth},height=${other.availHeight}`;
+    } catch { /* 許可されなければ同じ画面に開く */ }
+    open(`presenter.html#${deck.id}`, "talkslides-presenter", feat);
+  }
+  const assist = document.createElement("div");
+  assist.id = "assist"; assist.hidden = true;
+  const extOk = () => !!document.documentElement.dataset.tsEmbed;
+  const drawAssist = () => {
+    assist.innerHTML = `<div class="as-box"><div class="as-h">当日アシスト<button data-as="close" title="閉じる（Esc）">閉じる</button></div>
+      <ol>
+        <li class="${extOk() ? "ok" : "ng"}"><b>埋め込みブラウザ</b><span>${extOk() ? "拡張「TalkSlides Embed」が有効です" : "拡張が無効です。chrome://extensions で再読み込み → このページを再読み込み"}</span></li>
+        <li><b>Notion にログイン</b><span>普通のタブでログインしておくと、埋め込みにも反映されます</span><button data-as="notion">Notion を開く</button></li>
+        <li><b>2画面で開始</b><span>発表者画面（カンペ・時間）をもう1枚の画面に開き、このスライドを全画面にします。タイマーも0から始まります</span><button data-as="start" class="pri">2画面で開始</button></li>
+        <li><b>Zoom で画面共有</b><span>共有するのは、全画面にしたスライドの画面（発表者画面は共有しない）</span></li>
+        <li><b>最初のスライドへ</b><span>表紙から始める</span><button data-as="top">1枚目へ</button></li>
+      </ol><div class="as-k">A：このパネル ／ P：発表者画面 ／ F：全画面 ／ B：ブラウザ拡大 ／ N：Notion 別ウィンドウ</div></div>`;
+  };
+  assist.addEventListener("click", (e) => {
+    const k = e.target.dataset.as;
+    if (k === "close") assist.hidden = true;
+    if (k === "notion") open(deck.web?.home || deck.notionHome || "https://app.notion.com/", "_blank");
+    if (k === "top") go(0);
+    if (k === "start") { assist.hidden = true; bc.postMessage({ type: "start" }); openPresenter().then(() => document.fullscreenElement || document.documentElement.requestFullscreen()); }
+  });
+  new MutationObserver(() => { if (!assist.hidden) drawAssist(); }).observe(assist, { attributes: true, attributeFilter: ["hidden"] });
+  if (!DIST) {
+    document.body.appendChild(assist);
+    const asBtn = document.createElement("button");
+    asBtn.textContent = "当日アシスト"; asBtn.title = "本番前の確認と2画面の起動（A）";
+    asBtn.onclick = () => assist.toggleAttribute("hidden");
+    document.getElementById("hud").prepend(asBtn);
+    if (new URLSearchParams(location.search).has("assist")) assist.hidden = false;
+  }
 
   addEventListener("hashchange", () => go((parseInt(location.hash.slice(1), 10) || 1) - 1));
   window.TalkSlides = { go, deck, act };
