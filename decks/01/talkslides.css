@@ -320,7 +320,7 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 .sc-tall .live-l { width: 900px; }
 .showcase.tall { left: auto; right: 120px; top: 150px; width: auto; align-items: flex-start; }
 .showcase.tall img { width: auto; max-width: 840px; max-height: 760px; }
-.cards.tall .cimg { height: 470px; max-height: none; width: 100%; object-fit: cover; object-position: top left; border-radius: 10px; }
+.cards.tall .cimg { height: 420px; max-height: none; width: 100%; object-fit: cover; object-position: top left; border-radius: 10px; }
 .cards.tall { margin-top: 40px; }
 .note b, .fn b { display: inline-block; min-width: 4.6em; margin-right: 18px; padding: 2px 14px; border-radius: 6px; background: var(--ink); color: #fff; font-size: .82em; text-align: center; }
 #web .wname { flex: 1; font-size: 20px; font-weight: 700; color: var(--sub); }
@@ -340,3 +340,18 @@ html, body { height: 100%; background: #111; overflow: hidden; font-family: var(
 #assist button { border: 1.5px solid var(--ink); background: #fff; color: var(--ink); border-radius: 8px; padding: 8px 14px; font: 600 14px var(--font); cursor: pointer; }
 #assist button.pri { background: var(--ink); color: #fff; }
 #assist .as-k { margin-top: 14px; font-size: 13px; color: var(--sub); }
+/* 表の評価記号 */
+.mk { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; white-space: nowrap; }
+.mk i { width: 34px; height: 34px; flex: none; display: inline-block; background: center / contain no-repeat; }
+.mk.best i { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='17' cy='17' r='14' fill='none' stroke='%2316a34a' stroke-width='4'/%3E%3Ccircle cx='17' cy='17' r='7' fill='%2316a34a'/%3E%3C/svg%3E"); }
+.mk.good i { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='17' cy='17' r='13' fill='none' stroke='%231E6FFF' stroke-width='5'/%3E%3C/svg%3E"); }
+.mk.fair i { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cpath d='M17 4 L31 29 H3 Z' fill='none' stroke='%23ea8a00' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.mk.none i { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cpath d='M7 7 L27 27 M27 7 L7 27' stroke='%23b4b4b0' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.mk.best b { color: #15803d; } .mk.good b { color: var(--accent); } .mk.fair b { color: #b45309; } .mk.none b { color: #a3a3a0; font-weight: 500; }
+.mk-note { display: block; font-size: .78em; color: var(--sub); margin-top: 4px; }
+/* キーボードのキー */
+.kbd { display: flex; flex-direction: column; gap: 18px; padding: 26px 10px; align-items: center; background: var(--wash); border-radius: 12px; height: 420px; justify-content: center; }
+.krow { display: flex; align-items: center; gap: 12px; }
+.krow em { font-style: normal; font-size: 30px; color: var(--sub); }
+.krow span { margin-left: 10px; font-size: 20px; color: var(--sub); width: 5em; }
+kbd { min-width: 96px; height: 96px; padding: 0 18px; display: inline-grid; place-items: center; border-radius: 16px; background: #fff; border: 2px solid #d5d5d2; border-bottom-width: 7px; font: 700 40px var(--font); color: var(--ink); box-shadow: 0 6px 14px rgba(0,0,0,.08); }

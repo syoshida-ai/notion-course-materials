@@ -87,12 +87,20 @@
   // Notion風の表
   L.table = (s) => `<div class="slide mid">${kicker(s)}<div class="msg" ${a()} style="font-size:54px">${md(s.message)}</div>${icons(s)}
       <div class="ntable" ${a("pop")}><div class="nrow nhead">${s.cols.map((c) => `<div>${md(c)}</div>`).join("")}</div>
-      ${s.rows.map((r, k) => `<div class="nrow${s.hl === k ? " hl" : ""}" ${a("up")}>${r.map((c) => `<div>${md(c)}</div>`).join("")}</div>`).join("")}</div>
+      ${s.rows.map((r, k) => `<div class="nrow${s.hl === k ? " hl" : ""}" ${a("up")}>${r.map((c) => `<div>${cell(c)}</div>`).join("")}</div>`).join("")}</div>
       ${s.source ? `<div class="src">${esc(s.source)}</div>` : ""}</div>`;
+  // 表の評価記号（◎○△✕）を色つきの記号＋言葉にする（パッと見で分かるように）
+  const MARK = { "◎": ["best", "とても得意"], "○": ["good", "できる"], "△": ["fair", "苦手"], "✕": ["none", "できない"], "×": ["none", "できない"] };
+  const cell = (c) => {
+    const m = MARK[String(c).trim()[0]];
+    if (!m) return md(c);
+    const rest = String(c).trim().slice(1).trim();
+    return `<span class="mk ${m[0]}"><i></i><b>${m[1]}</b></span>${rest ? `<span class="mk-note">${md(rest)}</span>` : ""}`;
+  };
   // カードを格子に並べる（4〜6枚）
   L.cards = (s) => `<div class="slide mid">${kicker(s)}<div class="msg" ${a()} style="font-size:54px">${md(s.message)}</div>${icons(s)}
       <div class="cards${s.tallImg ? " tall" : ""}" style="grid-template-columns:repeat(${s.colsN || 3},1fr)">${s.items.map((it) =>
-        `<div class="block${it.hl ? " hl" : ""}" ${a("pop")}>${it.img ? `<img class="cimg" src="${esc(it.img)}" alt="">` : ""}${it.emoji ? `<div class="emoji">${it.emoji}</div>` : ""}
+        `<div class="block${it.hl ? " hl" : ""}" ${a("pop")}>${it.img ? `<img class="cimg" src="${esc(it.img)}" alt="">` : ""}${it.keys ? `<div class="kbd">${it.keys.map((k) => `<div class="krow">${k.slice(0, -1).map((x) => `<kbd>${esc(x)}</kbd>`).join("<em>＋</em>")}<span>${esc(k[k.length - 1])}</span></div>`).join("")}</div>` : ""}${it.emoji ? `<div class="emoji">${it.emoji}</div>` : ""}
         <div class="bt">${md(it.t)}</div><div class="bd">${md(it.d || "")}</div></div>`).join("")}</div></div>`;
   // 1枚のスクショを大きく見せる（左に文字、右に画像）
   L.showcase = (s) => `<div class="slide${s.tall ? " sc-tall" : ""}">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>${notes(s)}</div>
