@@ -118,11 +118,12 @@
   // ---------- 描画 ----------
   stage.innerHTML = deck.slides.map((s, i) => { n = 0; return (L[s.layout] || L.statement)(s).replace(/<\/div>$/, `${s.layout === "cover" ? "" : foot(s, i)}</div>`); }).join("");
   const slides = [...stage.children];
-  const WEB_RECT = [600, 40, 1280, 910];  // live レイアウトの既定位置（1920x1080 座標）。画面の約2/3をブラウザに使う
+  const WEB_RECT = [470, 64, 1426, 910];  // live レイアウトの既定位置（1920x1080 座標）。画面の約3/4をブラウザに使う
   const web = document.createElement("div");
   web.id = "web";
   web.innerHTML = `<div class="wbar"><i></i><i></i><i></i><button data-w="back" title="戻る">←</button><button data-w="reload" title="再読み込み">↻</button>
     <input id="wurl" spellcheck="false"><button data-w="max" title="大きく / 戻す（B）">⤢</button></div>
+    <div class="whint">埋め込みブラウザを表示できません。<br>Chrome の拡張「TalkSlides Embed」を chrome://extensions で有効化（または ↻ 再読み込み）してから、このページを再読み込みしてください。<br>N キーで Notion を別ウィンドウで開けます。</div>
     <iframe id="wframe" allow="clipboard-read; clipboard-write; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
   if (!DIST) document.body.appendChild(web);  // 拡大縮小される stage の外に置く（iframe を等倍で描画し、文字のにじみと操作のずれを防ぐ）
   const wframe = web.querySelector("#wframe"), wurl = web.querySelector("#wurl");
@@ -141,6 +142,7 @@
     }
     webRect = spec.rect || WEB_RECT; placeWeb();
     loadWeb(spec.url || wframe.dataset.src || deck.web?.home);
+    web.classList.toggle("noext", !document.documentElement.dataset.tsEmbed);  // 拡張が無いと Notion 等は真っ白（ブロック表示）になる
     web.classList.add("on");
   };
   web.addEventListener("click", (e) => e.stopPropagation());
