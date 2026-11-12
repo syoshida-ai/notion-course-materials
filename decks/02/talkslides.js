@@ -68,7 +68,7 @@
     track: (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()}>${md(s.message)}</div>
       <div class="track">${s.items.map((it) => `<div class="t${it.on ? " on" : ""}" data-a="up" style="--i:${n++};flex:${it.w || 1}"><i class="bar"></i>${it.icon ? ico(it.icon) : ""}<div class="n">${esc(it.n)}</div><div class="l">${esc(it.l)}</div>${it.d ? `<ul class="d">${it.d.map((x) => `<li>${md(x)}</li>`).join("")}</ul>` : ""}</div>`).join("")}</div></div>`,
     step: (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:60px">${md(s.message)}</div>
-      <div class="split"><div class="steps">${s.time ? `<div class="time" ${a("fade")}>目安 ${esc(s.time)}</div>` : ""}${s.actions.map((x, k) =>
+      <div class="split${s.stack ? " stack" : ""}"><div class="steps" ${s.stack ? `style="grid-template-columns:repeat(${s.actions.length},1fr)"` : ""}>${s.time ? `<div class="time" ${a("fade")}>目安 ${esc(s.time)}</div>` : ""}${s.actions.map((x, k) =>
         `<div class="step" ${a()}><b>${k + 1}</b><span>${md(x)}</span></div>`).join("")}</div>${shot(s)}</div></div>`,
     screenshot: (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:56px">${md(s.message)}</div>
       <div class="split" style="grid-template-columns:1fr">${shot(s)}</div>${s.source ? `<div class="src">${esc(s.source)}</div>` : ""}</div>`,

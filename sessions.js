@@ -16,7 +16,7 @@ window.SESSIONS = [
     banner: "assets/banners/notion02.jpg", published: true,
     items: [
       { kind: "投影資料", label: "第2回 投影資料（スライド103枚）", url: "decks/02/", note: "→キーまたはクリックで進みます" },
-      { kind: "宿題", label: "①議事録のボタンを作って1回使う ②応用編：ホームに1on1メモか授業ノートのボタンを置く", note: "締め切りは第3回 11/26（木）20:00まで。スクショをDiscordでシェア" },
+      { kind: "宿題", label: "①議事録のボタンを作って1回使う ②応用編：自分の好きな定型文をボタンで呼び出す仕組みを1つ作る", note: "締め切りは第3回 11/26（木）20:00まで。スクショをDiscordでシェア" },
       { kind: "特典", label: "ページを飾る・便利にする無料ツール集", url: "https://digirise.notion.site/4161fda80e76819b88add0ce87a2310a", note: "無料テンプレート・アイコン・ウィジェット・拡張機能" },
     ],
   },

@@ -398,3 +398,16 @@ kbd { min-width: 96px; height: 96px; padding: 0 18px; display: inline-grid; plac
 .cards:has(> :nth-child(4)) .cimg { max-height: 170px; }
 .cards:has(> :nth-child(4)) .bt { font-size: 28px; margin-top: 10px; }
 .cards:has(> :nth-child(4)) .bd { font-size: 21px; margin-top: 4px; }
+
+/* 画像を大きく（2026-11-12 本人指示「挿入画像が小さすぎて見にくい」） */
+.split { grid-template-columns: .9fr 1.65fr; gap: 56px; }
+.split .step { font-size: 30px; }
+.split.stack { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: 30px; margin-top: 28px; }
+.split.stack .steps { display: grid; gap: 26px; }
+.split.stack .step { font-size: 25px; line-height: 1.45; gap: 14px; }
+.split.stack .step b { width: 42px; height: 42px; font-size: 22px; }
+.feat { grid-template-columns: 470px 1fr; gap: 44px; margin-top: 28px; }
+.feat .frame { max-height: 520px; }
+.feat .frame img, .feat .frame video { max-height: 520px; }
+.cards .cimg { width: 100%; height: 360px; max-height: none; object-fit: contain; object-position: center; background: var(--wash); }
+.blocks .cimg { aspect-ratio: 4 / 3; object-fit: contain; object-position: center; background: var(--wash); }
