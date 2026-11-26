@@ -508,3 +508,6 @@ img:fullscreen, video:fullscreen { object-fit: contain; background: #111; }
 .two-qr figcaption em.url { font-size: 17px; color: #2563eb; font-weight: 700; word-break: break-all; max-width: 380px; }
 .two-qr figure img { width: 290px; height: 290px; }
 .ev-promo .banner { width: 68%; }
+/* URLはリンクとして（クリックで新しいタブ） */
+.slide a[href] { color: #2563eb; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+a.qurl { display: block; }

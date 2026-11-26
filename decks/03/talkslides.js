@@ -8,7 +8,7 @@
   const W = 1920, H = 1080;
   const stage = document.getElementById("stage");
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const md = (s) => esc(s).replace(/==(.+?)==/g, '<span class="mark">$1</span>').replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>").replace(/\\n|&lt;br&gt;/g, "<br>");  // ==強調== で下線マーカー
+  const md = (s) => esc(s).replace(/==(.+?)==/g, '<span class="mark">$1</span>').replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>").replace(/\\n|&lt;br&gt;/g, "<br>").replace(/(?<!["=>])(https?:\/\/[^\s<（）、。]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');  // ==強調== で下線マーカー
   let n = 0;  // アニメーションの順番カウンタ
   const a = (kind = "up") => `data-a="${kind}" style="--i:${n++}"`;
 
@@ -117,7 +117,7 @@
         <div><div class="tt">${md(it.t)}</div><div class="td">${md(it.d || "")}</div></div><div class="tm">${esc(it.m || "")}</div></div>`).join("")}</div></div>`;
   // QRコード（アンケート等）
   L.qr = (s) => `<div class="slide">${kicker(s)}<div class="live-l"><div class="msg" ${a()}>${md(s.message)}</div>${notes(s)}</div>
-      <div class="qrcard" ${a("pop")}><img src="${esc(s.qr)}" alt=""><div class="qurl">${esc(s.url)}</div><div class="qcap">${md(s.cap || "スマホのカメラで読み取ってください")}</div></div></div>`;
+      <div class="qrcard" ${a("pop")}><img src="${esc(s.qr)}" alt=""><a class="qurl" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a><div class="qcap">${md(s.cap || "スマホのカメラで読み取ってください")}</div></div></div>`;
   // スクショを並べる（キャプション・出典つき）
   L.gallery = (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:54px">${md(s.message)}</div>${icons(s)}
       <div class="gallery" style="grid-template-columns:${s.cols || `repeat(${s.shots.length},1fr)`}">${s.shots.map((g) =>
@@ -149,7 +149,7 @@
   // 機能紹介：上に1行メッセージ、左に要点、右に大きなスクショ
   L.feature = (s) => `<div class="slide">${kicker(s)}<div class="msg" ${a()} style="font-size:56px">${md(s.message)}</div>
       <div class="feat${s.wide ? " wide" : ""}"><div class="fnotes">${(s.notes || []).map((x) => `<div class="fn" ${a()}>${md(x)}</div>`).join("")}
-      ${s.qr ? `<div class="fqr" ${a("pop")}><img src="${esc(s.qr)}" alt=""><div><b>${esc(s.url || "")}</b><span>${md(s.cap || "スマホのカメラで読み取ってください")}</span></div></div>` : ""}</div>
+      ${s.qr ? `<div class="fqr" ${a("pop")}><img src="${esc(s.qr)}" alt=""><div><b><a href="${esc(s.url || "")}" target="_blank" rel="noopener">${esc(s.url || "")}</a></b><span>${md(s.cap || "スマホのカメラで読み取ってください")}</span></div></div>` : ""}</div>
       <figure ${a("pop")}><div class="frame">${media(s.shot.img)}</div>
       <figcaption><b>${md(s.shot.cap || "")}</b>${s.shot.src ? `<span>${esc(s.shot.src)}</span>` : ""}</figcaption></figure></div></div>`;
   // 区切り：ここまでできたら OK（チェック一覧）＋「次は」。右に完成画面を置ける
