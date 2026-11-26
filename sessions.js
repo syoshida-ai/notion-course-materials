@@ -25,7 +25,7 @@ window.SESSIONS = [
     banner: "assets/banners/notion03.jpg", published: true,
     items: [
       { kind: "投影資料", label: "第3回 投影資料（スライド80枚・操作動画つき）", url: "decks/03/", note: "→キーで進みます。動画はクリックで再生、右上で速度と拡大" },
-      { kind: "宿題", label: "今日の議事録データベースを完成させ、テンプレート機能で自分用のテンプレートを1つ作る", note: "締め切りは第4回 12/10（木）20:00まで。スクショをDiscordでシェア" },
+      { kind: "宿題", label: "今日の議事録データベースを完成させ、テンプレート機能で自分用のテンプレートを1つ作る", note: "締め切りは第4回 12/10（木）20:00まで。スクショをDiscordの「第3回」スレッドへ" },
     ],
   },
   { no: 4, date: "2026-12-10", title: "ビューで見せ方を変える", published: false },
