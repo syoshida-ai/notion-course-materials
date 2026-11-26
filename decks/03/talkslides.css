@@ -480,3 +480,7 @@ img:fullscreen, video:fullscreen { object-fit: contain; background: #111; }
 /* QR のスライド：左の文を上から（QRカードの上端にそろえる） */
 .slide:has(> .qrcard) { justify-content: flex-start; }
 .slide:has(> .qrcard) > .live-l { margin-top: 0; }
+/* 縦積みは「左に文・右に画像」（本人指示 11/26） */
+.ig-grid.ig-rows figure { grid-template-columns: 1fr 70%; }
+.ig-grid.ig-rows figcaption { order: -1; }
+.ig-grid.ig-rows figure img { justify-self: start; }
