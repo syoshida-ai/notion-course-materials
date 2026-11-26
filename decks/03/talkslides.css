@@ -505,3 +505,6 @@ img:fullscreen, video:fullscreen { object-fit: contain; background: #111; }
 .two-qr figcaption { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 .two-qr figcaption b { font-size: 38px; }
 .two-qr figcaption em, .two-qr figcaption span { font-style: normal; font-size: 22px; color: var(--sub); }
+.two-qr figcaption em.url { font-size: 17px; color: #2563eb; font-weight: 700; word-break: break-all; max-width: 380px; }
+.two-qr figure img { width: 290px; height: 290px; }
+.ev-promo .banner { width: 68%; }
