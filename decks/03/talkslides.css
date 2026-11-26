@@ -484,3 +484,5 @@ img:fullscreen, video:fullscreen { object-fit: contain; background: #111; }
 .ig-grid.ig-rows figure { grid-template-columns: 1fr 70%; }
 .ig-grid.ig-rows figcaption { order: -1; }
 .ig-grid.ig-rows figure img { justify-self: start; }
+/* QRの下のコード（クーポンなど）を大きく */
+.qcap b, .qcap strong { display: block; font-size: 56px; letter-spacing: .08em; color: var(--ink, #111); margin-top: 6px; }
