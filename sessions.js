@@ -24,7 +24,7 @@ window.SESSIONS = [
     no: 3, date: "2026-11-26", title: "はじめてのデータベース", sub: "会議ごとに議事録をまとめるデータベース",
     banner: "assets/banners/notion03.jpg", published: true,
     items: [
-      { kind: "投影資料", label: "第3回 投影資料（スライド117枚・操作動画つき）", url: "decks/03/", note: "→キーで進みます。動画はクリックで再生、右上で速度と拡大" },
+      { kind: "投影資料", label: "第3回 投影資料（スライド119枚・操作動画つき）", url: "decks/03/", note: "→キーで進みます。動画はクリックで再生、右上で速度と拡大" },
       { kind: "特典", label: "プロパティの説明書と使用例（全23種類）", url: "https://digirise.notion.site/Notion-3-4241fda80e768198aa7ef0ced0260900", note: "スクショ・動画つき。完成形の議事録データベースの見本も" },
       { kind: "宿題", label: "今日の議事録データベースを完成させ、テンプレート機能で自分用のテンプレートを1つ作る", note: "締め切りは第4回 12/10（木）20:00まで。スクショをDiscordの「第3回」スレッドへ" },
     ],
