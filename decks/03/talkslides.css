@@ -477,3 +477,6 @@ img:fullscreen, video:fullscreen { object-fit: contain; background: #111; }
 .ig tr:nth-child(even) td { background: #f5f7fb; }
 .ig td.hl { background: #e3ecff !important; color: #1a3d8f; font-weight: 800; }
 .ig td img { width: 40px; height: 40px; }
+/* QR のスライド：左の文を上から（QRカードの上端にそろえる） */
+.slide:has(> .qrcard) { justify-content: flex-start; }
+.slide:has(> .qrcard) > .live-l { margin-top: 0; }
