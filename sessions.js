@@ -20,7 +20,14 @@ window.SESSIONS = [
       { kind: "特典", label: "ページを飾る・便利にする無料ツール集", url: "https://digirise.notion.site/4161fda80e76819b88add0ce87a2310a", note: "無料テンプレート・アイコン・ウィジェット・拡張機能" },
     ],
   },
-  { no: 3, date: "2026-11-26", title: "はじめてのデータベース", published: false },
+  {
+    no: 3, date: "2026-11-26", title: "はじめてのデータベース", sub: "会議ごとに議事録をまとめるデータベース",
+    banner: "assets/banners/notion03.jpg", published: true,
+    items: [
+      { kind: "投影資料", label: "第3回 投影資料（スライド79枚・操作動画つき）", url: "decks/03/", note: "→キーで進みます。動画はクリックで再生、右上で速度と拡大" },
+      { kind: "宿題", label: "今日の議事録データベースを完成させ、テンプレート機能で自分用のテンプレートを1つ作る", note: "締め切りは第4回 12/10（木）20:00まで。スクショをDiscordでシェア" },
+    ],
+  },
   { no: 4, date: "2026-12-10", title: "ビューで見せ方を変える", published: false },
   { no: 5, date: "2026-12-17", title: "データベースをつなげる", published: false },
   { no: 6, date: "2027-01-07", title: "自分だけのワークスペースを設計する", published: false },
