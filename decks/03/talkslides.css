@@ -486,3 +486,15 @@ img:fullscreen, video:fullscreen { object-fit: contain; background: #111; }
 .ig-grid.ig-rows figure img { justify-self: start; }
 /* QRの下のコード（クーポンなど）を大きく */
 .qcap b, .qcap strong { display: block; font-size: 56px; letter-spacing: .08em; color: var(--ink, #111); margin-top: 6px; }
+/* イベント告知：バナー＋QR */
+.ev-promo { display: flex; flex-direction: column; gap: 22px; height: 100%; }
+.ev-promo .banner { width: 100%; border-radius: 14px; box-shadow: 0 16px 40px rgba(0,0,0,.14); }
+.ev-promo .qrline { display: flex; align-items: center; gap: 30px; }
+.ev-promo .qrline > img { width: 230px; height: 230px; image-rendering: pixelated; }
+.ev-promo .qrtxt { display: flex; flex-direction: column; gap: 6px; font-size: 26px; color: var(--sub); }
+.ev-promo .qrtxt b { font-size: 64px; letter-spacing: .08em; color: #111; line-height: 1.1; }
+.ev-promo .qrtxt em { font-style: normal; font-size: 22px; color: #2563eb; font-weight: 700; }
+.ev-promo { gap: 16px; align-items: center; }
+.ev-promo .banner { width: 80%; }
+.ev-promo .qrline > img { width: 180px; height: 180px; }
+.ev-promo .qrtxt b { font-size: 56px; }
